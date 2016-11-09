@@ -40,11 +40,13 @@ public class MainActivity extends AppCompatActivity {
                     bluetoothSetupDone();
                 }
             } else  {
-                Toast toast = Toast.makeText(getApplicationContext(), "Failed to get Bluetooth Adapter", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Failed to get Bluetooth Adapter", Toast.LENGTH_SHORT);
                 toast.show();
             }
         } else {
-            Toast toast = Toast.makeText(getApplicationContext(), "Failed to get Bluetooth Manager", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Failed to get Bluetooth Manager", Toast.LENGTH_SHORT);
             toast.show();
         }
     }
@@ -56,7 +58,9 @@ public class MainActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK) {
                     bluetoothSetupDone();
                 } else {
-                    Toast toast = Toast.makeText(getApplicationContext(), "User did not enable Bluetooth or an error occurred", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "User did not enable Bluetooth or an error occurred",
+                            Toast.LENGTH_SHORT);
                     toast.show();
                 }
                 break;
@@ -69,30 +73,36 @@ public class MainActivity extends AppCompatActivity {
 
     private void bluetoothSetupDone() {
         if(!mBluetoothAdapter.isMultipleAdvertisementSupported()) {
-            Toast toast = Toast.makeText(getApplicationContext(), "Device does not support Bluetooth LE", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Device does not support Bluetooth LE", Toast.LENGTH_SHORT);
             toast.show();
             return;
         }
 
         BluetoothLeAdvertiser mBluetoothLeAdvertiser = mBluetoothAdapter.getBluetoothLeAdvertiser();
-        Log.d("CREATED", "new BeaconTransmitter constructed.  mbluetoothLeAdvertiser is " +  mBluetoothLeAdvertiser);
+        Log.d("CREATED",
+                "new BeaconTransmitter constructed." +
+                        "mBluetoothLeAdvertiser is " +  mBluetoothLeAdvertiser);
 
         setAdvertiseData();
         setAdvertiseSettings();
 
-        mBluetoothLeAdvertiser.startAdvertising(mAdvertiseSettings, mAdvertiseData, mAdvertiseCallback);
+        mBluetoothLeAdvertiser.startAdvertising(mAdvertiseSettings,
+                mAdvertiseData, mAdvertiseCallback);
     }
 
     private AdvertiseCallback mAdvertiseCallback = new AdvertiseCallback() {
         @Override
         public void onStartSuccess(AdvertiseSettings settingsInEffect) {
-            Toast toast = Toast.makeText(getApplicationContext(), "Advertising", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Advertising", Toast.LENGTH_SHORT);
             toast.show();
         }
 
         @Override
         public void onStartFailure(int errorCode) {
-            Toast toast = Toast.makeText(getApplicationContext(), "ERROR", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "ERROR", Toast.LENGTH_SHORT);
             toast.show();
             Log.d("ERROR", "Failed with code" + errorCode);
         }
@@ -113,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         mManufacturerData.put(20, (byte)0x00); // first minor
         mManufacturerData.put(21, (byte)0x01); // second minor
         mManufacturerData.put(22, (byte)0xB5); // txPower
-        mBuilder.addManufacturerData(0x004C, mManufacturerData.array()); // using Apple's company ID
+        mBuilder.addManufacturerData(0x004C, mManufacturerData.array()); // using Apple's ID
         mAdvertiseData = mBuilder.build();
     }
 
