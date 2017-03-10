@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         mManufacturerData.put(18, (byte)0x00); // first byte of Major
         mManufacturerData.put(19, (byte)0x01); // second byte of Major
         mManufacturerData.put(20, (byte)0x00); // first minor
-        mManufacturerData.put(21, (byte)0x01); // second minor
+        mManufacturerData.put(21, (byte)0x03); // second minor
         mManufacturerData.put(22, (byte)0xB5); // txPower
         mBuilder.addManufacturerData(0x004C, mManufacturerData.array()); // using Apple's ID
         mAdvertiseData = mBuilder.build();
